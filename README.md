@@ -3,3 +3,5 @@
 CNN Tensorflow Lite Model trained on https://www.kaggle.com/paultimothymooney/chest-xray-pneumonia Dataset And Integrated inside Android app
 
 Model Has An Accuracy of 92%
+
+Apk can be downloaded from Github Release of this repository
