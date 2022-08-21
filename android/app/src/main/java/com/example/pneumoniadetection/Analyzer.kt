@@ -2,7 +2,6 @@ package com.example.pneumoniadetection
 
 import android.content.Context
 import android.graphics.Bitmap
-import android.util.Log
 import com.example.pneumoniadetection.ml.PneumoniaDetection
 import org.tensorflow.lite.DataType
 import org.tensorflow.lite.support.tensorbuffer.TensorBuffer
@@ -11,15 +10,9 @@ import java.nio.ByteOrder
 
 class Analyzer(context: Context) {
     private var mContext = context
-    var FinalResult=ClassificationDataClass("default",-1.1f)
-
-
-
-    //fun classify(bitmap: Bitmap, callback: (Classifier) -> Unit) {
+    private var finalResult=ClassificationDataClass("default",-1.1f)
 
     fun classify(bitmap: Bitmap):ClassificationDataClass{
-
-
 
         val shapedBitmap = Bitmap.createScaledBitmap(bitmap, 150, 150, false)
 
@@ -52,21 +45,16 @@ class Analyzer(context: Context) {
 
         model.close()
 
-        FinalResult.resultProbability=confidences[0]
-        if (FinalResult.resultProbability<0.25)
+        finalResult.resultProbability=confidences[0]
+        if (finalResult.resultProbability<0.25)
 
         {
-            FinalResult.resultName="Normal"
+            finalResult.resultName="Normal"
         }
         else
         {
-            FinalResult.resultName="Pneumonic"
+            finalResult.resultName="Pneumonic"
         }
-        return FinalResult
-
-    }
-
-    companion object {
-        const val TAG = "AnalyzerTag"
+        return finalResult
     }
 }

@@ -6,8 +6,10 @@ import android.graphics.Bitmap
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.databinding.DataBindingUtil
 import com.example.pneumoniadetection.databinding.ActivityMainBinding
+
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -24,24 +26,23 @@ class MainActivity : AppCompatActivity() {
             openGallery()
         }
     }
-
     private fun openGallery() {
         val intent = Intent(Intent.ACTION_GET_CONTENT)
         intent.type = "image/*"
-        startActivityForResult(intent, 200)
+        resultLauncher.launch(intent)
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == Activity.RESULT_OK) {
-            if (requestCode == 200) {
+    private var resultLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+
+                val data: Intent? = result.data
                 val uri = data?.data
                 val bitmap = MediaStore.Images.Media.getBitmap(this.contentResolver, uri)
                 binding.imageView.setImageBitmap(bitmap)
                 classifyImage(bitmap)
             }
         }
-    }
 
     private fun classifyImage(bitmap: Bitmap?) {
         if (::analyzer.isInitialized) {
