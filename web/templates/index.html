@@ -1,0 +1,114 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body{
+            background-color: rgba(0, 0, 0, 0.779);
+        }
+        .heading{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .reloadbutton{
+            margin-top: 5vh ;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        .inputform{
+            margin-top: 5vh ;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            color: white;
+        }
+        .resimg{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        .res{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        .result {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: white;
+            margin-top: 20px;
+        }
+
+        .btn{
+            border: none;
+            font-size: 20px;
+            padding: 5px 5px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: blueviolet;
+            cursor: pointer;
+            color: white;
+        }
+       
+    </style>
+</head>
+<body>
+
+    <div class="heading">
+        <h1>PNEUMONIA DETECTOR</h1>
+    </div>
+    <div class="reloadbutton">
+        <p>Please Click Reload Button After Every Successful Classification</p>
+        <form action="/" method="GET">
+            <input type="submit" name="Reload" value="Reload" />
+        </form>
+    </div>
+    <div class="inputform">
+        <div style="margin-bottom:50px ;">Upload the image of X-ray</div>
+        <form action="/" method="POST" enctype="multipart/form-data">
+            <input type="file" accept="image/*" name="image" id="file" onchange="loadFile(event)"  style="display: none;">
+            <img id="output" style="width: 300" style="height: 300"/>
+            <script>
+                var loadFile = function(event) {
+                var output = document.getElementById('output');
+                output.src = URL.createObjectURL(event.target.files[0]);
+                output.onload = function() {
+                URL.revokeObjectURL(output.src)
+                }
+            };
+            </script>
+            <div class="resimg">
+            <label for="file" style="cursor: pointer; background-color: purple; padding: 5px 5px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">Click Here to Upload</label>
+            <input type="submit" style="border:none; padding:5px 10px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: red; color: white;cursor: pointer;" >
+            </div>
+        </form>
+        
+        
+    </div>
+    {% if final_result %}
+
+    <div class="res">
+       
+        <h1 class="result">{{final_result['result']}}</h1>
+        <h1 class="result">{{final_result['value']}}</h1>
+      
+    </div>
+    {% endif %}
+
+
+    
+</body>
+</html>
