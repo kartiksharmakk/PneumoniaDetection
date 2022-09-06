@@ -28,6 +28,6 @@ https://user-images.githubusercontent.com/77577353/186962357-59ff7d4e-cc91-47fc-
 - CNN Tensorflow Lite Model trained on https://www.kaggle.com/paultimothymooney/chest-xray-pneumonia Dataset 
 - Model Has An Accuracy of 92%
 - Model gives prediction within range of 0 (tending to normal)  and 1 (tending to pneumonic) , to be sure that pneumonic people arent classified as normal , I have set   parameter above 0.2 to denote pneumonic
+- Model files and The training jupyter notebook are present in model_generation.zip file
 
-
-<img src="https://raw.githubusercontent.com/kartiksharmakk/PneumoniaDetection/main/model/pneumonia_detection_visualized.png" width="30%" height="25%"/>
+<img src="https://raw.githubusercontent.com/kartiksharmakk/PneumoniaDetection/main/pneumonia_detection_visualized.png" width="30%" height="25%"/>
